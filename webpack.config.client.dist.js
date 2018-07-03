@@ -19,31 +19,29 @@ module.exports = {
   module: {
     rules: [
       { test: /\.jsx?$/, 
-        use: { 
-          loader: 'babel-loader', 
-          options: {
-            "presets": [
-              ["env", {
-                "module": false,
-                "loose": true,
-                "targets": {
-                  "browsers": [
-                    "ie >= 8",
-                    "Chrome >= 21",
-                    "Firefox >= 1",
-                    "Edge >= 13",
-                    "last 3 versions"
-                  ]
-                }
-              }],
-              "react"
-            ],
-            "plugins": [
-              "transform-object-rest-spread"
-            ]
-          }
-        }, 
-        exclude:/\/node_modules\//
+        loader: 'babel-loader', 
+        options: {
+          "presets": [
+            ["env", {
+              "module": false,
+              "loose": true,
+              "targets": {
+                "browsers": [
+                  "ie >= 8",
+                  "Chrome >= 21",
+                  "Firefox >= 1",
+                  "Edge >= 13",
+                  "last 3 versions"
+                ]
+              }
+            }],
+            "react"
+          ],
+          "plugins": [
+            "transform-object-rest-spread"
+          ]
+        },
+        include: path.resolve(__dirname,'src')
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,

@@ -23,9 +23,6 @@ module.exports = {
     publicPath: `http://localhost:${devServerPort}/`,
   },
   watch: true,
-  watchOptions: {
-    ignored: /node_modules/
-  },
   node: { console: true, __filename: true, __dirname: true },
   target: 'node',
   externals: [
@@ -77,7 +74,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      'webpack/hot/poll': path.resolve(__dirname, 'node_modules/webpack/hot/poll'),
+      'webpack/hot/poll': require.resolve('webpack/hot/poll'),
     },
   },
   plugins: [

@@ -1,16 +1,14 @@
 const path = require('path')
-const es3ifyPlugin = require('es3ify-webpack-plugin')
 const webpack = require('webpack')
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
 const AssetsPlugin = require('assets-webpack-plugin');
-const FriendlyErrorsPlugin = require('razzle-dev-utils/FriendlyErrorsPlugin');
 
 const port = process.env.PORT || 40000
 const devServerPort = parseInt(port, 10) + 1
 
 module.exports = {
   devtool: 'cheap-eval-source-map',
-  entry: {client: [ './scripts/webpackHotDevClient.js','./node_modules/babel-polyfill/lib/index.js','./src/client.js']},
+  entry: {client: [ './scripts/webpackHotDevClient.js','babel-polyfill','./src/client.js']},
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
@@ -29,11 +27,10 @@ module.exports = {
       disableDotRule: true,
     },
     host: 'localhost',
-    //inline: true,
     hot: true,
     noInfo: true,
     overlay: false,
-    port: 40001,
+    port: devServerPort,
     quiet: true,
     watchOptions: {
       ignored: /node_modules/,
@@ -44,7 +41,7 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.jsx?$/, loader: 'babel-loader', options:{ babelrc: true, cacheDirectory: true}, exclude:/\/node_modules\//},
+      { test: /\.jsx?$/, loader: 'babel-loader', options:{ babelrc: true, cacheDirectory: true}, include: path.resolve(__dirname,'src')},
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         loader: 'url-loader',
@@ -88,6 +85,5 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new es3ifyPlugin()
   ]
 }
