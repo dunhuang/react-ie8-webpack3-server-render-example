@@ -8,11 +8,11 @@ const devServerPort = parseInt(port, 10) + 1
 
 module.exports = {
   devtool: 'cheap-eval-source-map',
-  entry: {client: [ './scripts/webpackHotDevClient.js','babel-polyfill','./src/client.js']},
+  entry: {polyfill:'babel-polyfill', bundle: [ './scripts/webpackHotDevClient.js','./src/client.js']},
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
-    filename: 'static/js/bundle.js',
+    filename: 'static/js/[name].js',
     publicPath: `http://localhost:${devServerPort}/`
   },
   target: 'web',

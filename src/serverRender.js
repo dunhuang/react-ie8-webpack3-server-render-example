@@ -9,11 +9,8 @@ import history from './app/history'
 import assets from '../dist/assets.json'
 
 const assetsHost = process.env.NODE_ENV === 'production' ? '/static':''
-const clientScript = process.env.NODE_ENV === 'production' ? 
-  `<script src="${assets.polyfill.js}"></script>\n
+const clientScript = `<script src="${assets.polyfill.js}"></script>\n
   <script src="${assets.bundle.js}"></script>\n`
-  : 
-  `<script src="${assets.client.js}"></script>\n` 
 const htmlTemplate = (markup, store) => `<!DOCTYPE html>
 <html>
 <head>
