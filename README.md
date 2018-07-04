@@ -6,6 +6,7 @@
 
 非server render的例子在这 https://github.com/dunhuang/react-ie8-webpack3-example
 
+code-splitting（react-loadable）的例子见 https://github.com/dunhuang/react-ie8-webpack3-server-render-example/tree/loadable
 ## run  
 
 ie8 只能在build模式下跑起来:
