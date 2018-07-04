@@ -3,8 +3,23 @@ import { Router, Route, IndexRoute } from 'react-router'
 import App from '../views/App'
 import About from '../views/About'
 import Index from '../views/Index'
-import Login from '../views/Login'
 import NotFound from '../views/NotFound'
+//import Login from '../views/Login' //将login改为按需加载
+import Loadable from 'react-loadable'
+
+class Loading extends React.Component {
+  render() {
+    return (
+      null
+    )
+  }
+}
+
+//将login改为按需加载
+const Login = Loadable({
+  loader: () => import('../views/Login'),
+  loading: Loading
+});
 
 
 const routes = (

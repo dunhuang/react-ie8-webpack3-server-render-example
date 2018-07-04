@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
 const AssetsPlugin = require('assets-webpack-plugin');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 const port = process.env.PORT || 40000
 const devServerPort = parseInt(port, 10) + 1
@@ -13,7 +14,10 @@ module.exports = {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
     filename: 'static/js/[name].js',
-    publicPath: `http://localhost:${devServerPort}/`
+    chunkFilename: 'static/js/[name].chunk.js',
+    publicPath: `http://localhost:${devServerPort}/`,
+    devtoolModuleFilenameTemplate: info =>
+      path.resolve(info.resourcePath).replace(/\\/g, '/'),
   },
   target: 'web',
   devServer: {
@@ -85,5 +89,8 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new ReactLoadablePlugin({
+      filename: './dist/react-loadable.json',
+    })
   ]
 }

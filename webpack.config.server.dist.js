@@ -35,7 +35,9 @@ module.exports = {
               "react"
             ],
             "plugins": [
-              "transform-object-rest-spread"
+              "transform-object-rest-spread",
+              "react-loadable/babel",
+              "syntax-dynamic-import"
             ],
           }
         }],
@@ -51,22 +53,20 @@ module.exports = {
       },
       {
         test: /\.s?[ac]ss$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                includePaths: [path.resolve(__dirname, './src')]
-              }
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true
             }
-          ]
-        })
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [path.resolve(__dirname, './src')]
+            }
+          }
+        ]
       }
     ]
   },
@@ -80,6 +80,9 @@ module.exports = {
         TARGET_ENV: JSON.stringify('server'),
       }
     }),    
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true
     })

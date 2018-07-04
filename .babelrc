@@ -6,6 +6,8 @@
     "react"
   ],
   "plugins": [
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "react-loadable/babel",
+    "syntax-dynamic-import"
   ]
 }

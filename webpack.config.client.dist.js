@@ -5,6 +5,7 @@ const es3ifyPlugin = require('es3ify-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const AssetsPlugin = require('assets-webpack-plugin');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 module.exports = {
   entry: {
@@ -14,7 +15,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name]_[chunkhash:8].js',
-    publicPath: '/static'
+    chunkFilename: '[name].[chunkhash:8].chunk.js',
+    publicPath: '/static/'
   },
   module: {
     rules: [
@@ -38,7 +40,9 @@ module.exports = {
             "react"
           ],
           "plugins": [
-            "transform-object-rest-spread"
+            "transform-object-rest-spread",
+            "react-loadable/babel",
+            "syntax-dynamic-import"
           ]
         },
         include: path.resolve(__dirname,'src')
@@ -115,6 +119,9 @@ module.exports = {
     }),
     new ExtractTextPlugin({
       filename: 'style_[chunkhash:8].css'
+    }),
+    new ReactLoadablePlugin({
+      filename: './dist/react-loadable.json',
     })
   ]
 }

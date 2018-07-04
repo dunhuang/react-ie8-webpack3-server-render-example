@@ -10,6 +10,7 @@ const configureStore = require('./app/store').configureStore
 const routes = require('./app/routes').default
 const browserHistory = require('./app/history').default
 const initialState = require('./app/reducers/initialState').default
+const Loadable = require('react-loadable')
 
 const store = configureStore( window.__PRELOADED_STATE__ || initialState)
 
@@ -19,15 +20,18 @@ const App = () => (
   </Provider>
 )
 
-const render = (Component) => {
-  ReactDOM.render(
-    <Component/>,
-    document.getElementById('app')
-  )
+window.main = () => {
+  Loadable.preloadReady().then(() => {
+    ReactDOM.render(
+      <App/>,
+      document.getElementById('app')
+    )
+  })
 }
 
-render(App)
 
 if(module.hot){
-  module.hot.accept()
+  console.log('hot')
+  module.hot.accept();
+  console.log(module.hot.accept)
 }
